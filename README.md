@@ -1,4 +1,4 @@
-# tanimy
+# tani-money
 
 A new Flutter project.
 
