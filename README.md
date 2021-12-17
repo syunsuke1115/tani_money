@@ -4,6 +4,15 @@ A new Flutter project.
 
 ## Getting Started
 
+## 概要
+みんなが楽しく、プロジェクトを進められるために
+
+## グラウンドルール
+- ブランチはmainから必ず切り出して作業する。ブランチ名はfuture/xxxx
+- できたらプルリクを出す
+- 基本調べればわかる。30分調べてわからなかったら聞く
+
+
 This project is a starting point for a Flutter application.
 
 A few resources to get you started if this is your first Flutter project:
