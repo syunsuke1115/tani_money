@@ -130,6 +130,9 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  intl:
+    dependency: "direct main"
+
   flutter_web_plugins:
     dependency: transitive
     description: flutter
