@@ -2,16 +2,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tanimy/models/botton_common.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:tanimy/parts/use_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'LoginScreen.dart';
 import 'MainScreen.dart';
 
 class SignUpScreen extends StatefulWidget {
 
   @override
-  _SignUpScreenState createState() => _SignupScreenState();
+  _SignUpScreenState createState() => _SignUpScreenState();
 }
 
-class _SignupScreenState extends State<SignupScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final nicknameController = new TextEditingController();
@@ -26,7 +28,6 @@ class _SignupScreenState extends State<SignupScreen> {
         appBar: AppBar(
           title: Text("新規登録"),
           centerTitle: true,
-          backgroundColor: Colors.redAccent,
         ),
         body: SingleChildScrollView(
           child: Form(
@@ -131,7 +132,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     onPressed: () =>
                         signUp(emailController.text, passwordController.text),
                     label: "登録",
-                    color: Colors.redAccent),
+                    color: Colors.blue),
 
                 //loginscreenへ移動
                 SizedBox(
@@ -215,7 +216,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
     Navigator.pushAndRemoveUntil(
         (context),
-        MaterialPageRoute(builder: (context) => UserlistScreen()),
+        MaterialPageRoute(builder: (context) => MainScreen()),
             (route) => false);
   }
 }
