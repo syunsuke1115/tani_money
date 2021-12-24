@@ -16,28 +16,6 @@ class _SubmitScreenState extends State<SubmitScreen> {
           centerTitle: true,
           backgroundColor: Colors.blue,
         ),
-        body: Container(
-            alignment: Alignment.center,
-            child:SizedBox(
-              height: 150, // Widgetの高さを指定
-              width: 150,
-              child:ElevatedButton(
-                child: const Text('成績表pdfを提出'),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
-                  onPrimary: Colors.black,
-                  shape: const CircleBorder(
-                    side: BorderSide(
-                      color: Colors.black,
-                      width: 1,
-                      style: BorderStyle.solid,
-                    ),
-                  ),
-                ),
-                onPressed: () {},
-              ),
-
-            )
-        )
-          );
-  }}
+        body: Container());
+  }
+}
