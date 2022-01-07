@@ -2,13 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tanimy/models/botton_common.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:tanimy/pages/ScreenChange.dart';
 import 'package:tanimy/parts/use_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'LoginScreen.dart';
 import 'MainScreen.dart';
 
 class SignUpScreen extends StatefulWidget {
-
   @override
   _SignUpScreenState createState() => _SignUpScreenState();
 }
@@ -139,7 +139,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: 15.0,
                 ),
                 TextButton(
-                  child: const Text('既にアカウントをお持ちの方はこちら',style: TextStyle(fontSize: 16.0,fontFamily: "Mont"),),
+                  child: const Text(
+                    '既にアカウントをお持ちの方はこちら',
+                    style: TextStyle(fontSize: 16.0, fontFamily: "Mont"),
+                  ),
                   style: TextButton.styleFrom(
                     primary: Colors.black,
                   ),
@@ -164,13 +167,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   Widget _buildInputField(
       {required TextEditingController controller,
-        required TextInputType textInputType,
-        required String hintText,
-        required FormFieldSetter onSaved,
-        required IconData icon,
-        required bool obscureText,
-        required TextInputAction textInputAction,
-        required FormFieldValidator validator}) {
+      required TextInputType textInputType,
+      required String hintText,
+      required FormFieldSetter onSaved,
+      required IconData icon,
+      required bool obscureText,
+      required TextInputAction textInputAction,
+      required FormFieldValidator validator}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 36.0),
       child: TextFormField(
@@ -184,10 +187,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
         decoration: InputDecoration(
             prefixIcon: Icon(icon),
             contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-
             hintText: hintText,
             border:
-            OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
+                OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
       ),
     );
   }
@@ -216,8 +218,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     Navigator.pushAndRemoveUntil(
         (context),
-        MaterialPageRoute(builder: (context) => MainScreen()),
-            (route) => false);
+        MaterialPageRoute(builder: (context) => ScreenChange()),
+        (route) => false);
   }
 }
-

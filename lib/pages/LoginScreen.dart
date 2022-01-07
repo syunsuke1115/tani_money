@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tanimy/models/botton_common.dart';
+import 'package:tanimy/pages/ScreenChange.dart';
 
 import 'MainScreen.dart';
 import 'SignUpScreen.dart';
@@ -88,7 +89,10 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
 
             TextButton(
-              child: const Text('初めての方はこちら',style: TextStyle(fontSize: 16.0,fontFamily: "Mont"),),
+              child: const Text(
+                '初めての方はこちら',
+                style: TextStyle(fontSize: 16.0, fontFamily: "Mont"),
+              ),
               style: TextButton.styleFrom(
                 primary: Colors.black,
               ),
@@ -104,25 +108,25 @@ class _LoginScreenState extends State<LoginScreen> {
     if (_formKey.currentState!.validate()) {
       await _auth
           .signInWithEmailAndPassword(email: email, password: password)
-          .then((uid) =>
-      {
-        Fluttertoast.showToast(msg: "ログイン"),
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => MainScreen())),
-      })
+          .then((uid) => {
+                Fluttertoast.showToast(msg: "ログイン"),
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => ScreenChange())),
+              })
           .catchError((e) {
         Fluttertoast.showToast(msg: "メールアドレス、パスワードが正しくありません");
       });
     }
   }
 
-  Widget _buildInputField({required TextEditingController controller,
-    required TextInputType textInputType,
-    required String hintText,
-    required IconData icon,
-    required bool obscureText,
-    required TextInputAction textInputAction,
-    FormFieldValidator? validator}) {
+  Widget _buildInputField(
+      {required TextEditingController controller,
+      required TextInputType textInputType,
+      required String hintText,
+      required IconData icon,
+      required bool obscureText,
+      required TextInputAction textInputAction,
+      FormFieldValidator? validator}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 36.0),
       child: TextFormField(
@@ -137,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
             contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
             hintText: hintText,
             border:
-            OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
+                OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
       ),
     );
   }
