@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tanimy/models/botton_common.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:tanimy/pages/ScreenChange.dart';
 import 'package:tanimy/parts/use_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'LoginScreen.dart';
@@ -217,7 +218,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     Navigator.pushAndRemoveUntil(
         (context),
-        MaterialPageRoute(builder: (context) => MainScreen()),
+        MaterialPageRoute(builder: (context) => ScreenChange()),
         (route) => false);
   }
 }
