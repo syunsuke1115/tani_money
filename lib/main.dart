@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:tanimy/pages/MainScreen.dart';
 import 'package:tanimy/pages/MyPage.dart';
 import 'package:tanimy/pages/SubmitScreen.dart';
-import 'package:tanimy/pages/TargetScreen.dart';
 import 'pages/HomeScreen.dart';
 
 void main() async {
@@ -20,7 +19,6 @@ class Myapp extends StatelessWidget {
       home: HomeScreen(),
       routes: <String, WidgetBuilder>{
         '/home': (BuildContext context) => new MainScreen(),
-        '/target': (BuildContext context) => new TargetScreen(),
         '/submit': (BuildContext context) => new SubmitScreen(),
         '/setting': (BuildContext context) => new MyPage()
       },
