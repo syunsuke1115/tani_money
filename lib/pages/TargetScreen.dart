@@ -10,13 +10,38 @@ class TargetScreen extends StatefulWidget {
 class _TargetScreenState extends State<TargetScreen> {
   // Todoリストのデータ
   List<String> targetList = [];
+  List<DropdownMenuItem<int>> _items = [];
+  int _selectItem = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    setItems();
+    _selectItem = _items[0].value!;
+  }
+
+  void setItems() {
+    _items
+      ..add(DropdownMenuItem(
+        child: Text('得単', style: TextStyle(fontSize: 20.0),),
+        value: 1,
+      ))
+      ..add(DropdownMenuItem(
+        child: Text('優', style: TextStyle(fontSize: 20.0),),
+        value: 2,
+      ))
+      ..add(DropdownMenuItem(
+        child: Text('優上', style: TextStyle(fontSize: 20.0),),
+        value: 3,
+      ));
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // AppBarを表示し、タイトルも設定
       appBar: AppBar(
-        title: Text('リスト一覧'),
+        title: Text('目標一覧'),
       ),
       // データを元にListViewを作成
       body: ListView.builder(
@@ -25,6 +50,15 @@ class _TargetScreenState extends State<TargetScreen> {
           return Card(
             child: ListTile(
               title: Text(targetList[index]),
+              trailing: DropdownButton(
+                items: _items,
+                value: _selectItem,
+                onChanged: (value) => {
+                  setState(() {
+                    _selectItem= value;
+                  }),
+                },
+              ),
             ),
           );
         },
@@ -52,3 +86,4 @@ class _TargetScreenState extends State<TargetScreen> {
     );
   }
 }
+
