@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:intl/intl.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'MyPage.dart';
 import 'SubmitScreen.dart';
 import 'TargetScreen.dart';
+import 'TargetAddPage.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -17,7 +19,7 @@ class _MainScreenState extends State<MainScreen> {
   var _selectIndex = 0;
   var _pages = <Widget>[];
   //var _label = '';
-  var _titles = ['目標設定', '成績提出', '設定'];
+  var _titles = ['メイン', '目標設定', '成績提出', '設定'];
   String name = "hogehoge";
   static DateTime setDate = DateTime(2021, 12, 24, 14, 28);
   static DateFormat outputFormat = DateFormat('yyyy年MM月dd日');
@@ -33,7 +35,6 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        //title: Text("メインスクリーン"), //TODO メインスクリーンと言わない
         centerTitle: true,
         backgroundColor: Colors.blue,
       ),
@@ -55,18 +56,6 @@ class _MainScreenState extends State<MainScreen> {
                             Text(lessonList[index])
                           ]);
                     })),
-            Center(
-                child: ElevatedButton(
-                    onPressed: () => startTargetScreen(context),
-                    child: Text("目標を設定する"))),
-            Center(
-                child: ElevatedButton(
-                    onPressed: () => startSubmitScreen(context),
-                    child: Text("成績を提出する"))),
-            Center(
-                child: ElevatedButton(
-                    onPressed: () => startMyPage(context),
-                    child: Text("マイページ"))),
           ],
         ),
       ),
@@ -74,22 +63,43 @@ class _MainScreenState extends State<MainScreen> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.contacts),
-            title: Text(_titles[0]),
+            label: _titles[0],
+            backgroundColor: Colors.blue,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.map),
-            title: Text(_titles[1]),
+            label: _titles[1],
+            backgroundColor: Colors.blue,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.chat),
-            title: Text(_titles[2]),
+            label: _titles[2],
+            backgroundColor: Colors.blue,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat),
+            label: _titles[3],
+            backgroundColor: Colors.blue,
           ),
         ],
-        onTap: (int index) {
-          _selectIndex = index;
-          //_label = _titles[index];
-        },
         currentIndex: _selectIndex,
+        //onTap: _onTapItem,
+        onTap: (int index) {
+          switch (index) {
+            case 0:
+              Navigator.of(context).pushNamed("/home");
+              break;
+            case 1:
+              Navigator.of(context).pushNamed("/target");
+              break;
+            case 2:
+              Navigator.of(context).pushNamed("/submit");
+              break;
+            case 3:
+              Navigator.of(context).pushNamed("/setting");
+              break;
+          }
+        },
       ),
     );
   }

@@ -32,14 +32,15 @@ class _TargetScreenState extends State<TargetScreen> {
           children: [
             StreamBuilder<QuerySnapshot>(
               stream: _targetsStream,
-              builder:
-                  (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Text("Loading");
                 }
                 return Expanded(
                   child: ListView(
-                    children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                    children:
+                        snapshot.data!.docs.map((DocumentSnapshot document) {
                       Map<String, dynamic> data =
                           document.data() as Map<String, dynamic>;
                       return Card(
