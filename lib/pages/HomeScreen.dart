@@ -69,7 +69,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Container(
               height: 300,
-                width: 300,
                 child: Image.asset("images/title.png")),
 
             ButtonCommon(
