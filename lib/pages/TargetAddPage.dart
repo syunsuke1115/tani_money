@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TargetAddPage extends StatefulWidget {
   @override
@@ -8,6 +10,7 @@ class TargetAddPage extends StatefulWidget {
 class _TargetAddPageState extends State<TargetAddPage> {
   // 入力されたテキストをデータとして持つ
   String _text = '';
+  static final _firestore = FirebaseFirestore.instance;
 
   // データを元に表示するWidget
   @override
@@ -51,6 +54,7 @@ class _TargetAddPageState extends State<TargetAddPage> {
                   // "pop"で前の画面に戻る
                   // "pop"の引数から前の画面にデータを渡す
                   Navigator.of(context).pop(_text);
+                  addFirestore(_text);
                 },
               ),
             ),
@@ -72,5 +76,19 @@ class _TargetAddPageState extends State<TargetAddPage> {
         ),
       ),
     );
+  }
+
+  void addFirestore(_text) {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? user = auth.currentUser;
+    final uid = user!.uid;
+    _firestore
+        .collection('users')
+        .doc(uid)
+        .collection('targets')
+        .doc()
+        .set({
+      'subjectName': _text,
+    });
   }
 }
