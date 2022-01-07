@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:intl/intl.dart';
 
 import 'MyPage.dart';
 import 'SubmitScreen.dart';
 import 'TargetScreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -16,6 +19,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   var _selectIndex = 0;
   var _pages = <Widget>[];
+
   //var _label = '';
   var _titles = ['目標設定', '成績提出', '設定'];
   String name = "hogehoge";
@@ -31,42 +35,46 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   Widget build(BuildContext context) {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? user = auth.currentUser;
+    final uid = user!.uid;
+    final Stream<QuerySnapshot> _targetsStream = FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection("targets")
+        .snapshots();
+
     return Scaffold(
       appBar: AppBar(
         //title: Text("メインスクリーン"), //TODO メインスクリーンと言わない
         centerTitle: true,
         backgroundColor: Colors.blue,
       ),
-      body: SafeArea(
+      body: Container(
         child: Column(
           children: [
-            Text('$nameさんは$dateStringに'),
-            Container(
-                height: 125,
-                child: ListView.builder(
-                    itemCount: lessonList.length,
-                    itemBuilder: (context, index) {
-                      String i = index.toString();
-                      return Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(i),
-                            Text(":"),
-                            Text(lessonList[index])
-                          ]);
-                    })),
-            Center(
-                child: ElevatedButton(
-                    onPressed: () => startTargetScreen(context),
-                    child: Text("目標を設定する"))),
-            Center(
-                child: ElevatedButton(
-                    onPressed: () => startSubmitScreen(context),
-                    child: Text("成績を提出する"))),
-            Center(
-                child: ElevatedButton(
-                    onPressed: () => startMyPage(context),
-                    child: Text("マイページ"))),
+            StreamBuilder<QuerySnapshot>(
+              stream: _targetsStream,
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Text("Loading");
+                }
+                return Expanded(
+                  child: ListView(
+                    children:
+                        snapshot.data!.docs.map((DocumentSnapshot document) {
+                      Map<String, dynamic> data =
+                          document.data() as Map<String, dynamic>;
+                      return Card(
+                          child: ListTile(
+                        title: Text(data["subjectName"]),
+                      ));
+                    }).toList(),
+                  ),
+                );
+              },
+            ),
           ],
         ),
       ),
