@@ -13,6 +13,15 @@ class _SubmitScreenState extends State<SubmitScreen> {
 
   void _changeSwitch(bool e) => setState(() => _active = e);
 
+
+
+  // void getMessages() async {
+  //   final messages = await _firestore.collection("コレクション名").get();
+  //   for (var message in messages.docs) {
+  //     print(message.data());
+  //   }
+  // }
+
   final List<List<String>> seiseki = [
     ["科目名1", "1000"],
     ["科目名2", "1000"],
