@@ -23,15 +23,15 @@ class _TargetScreenState extends State<TargetScreen> {
   void setItems() {
     _items
       ..add(DropdownMenuItem(
-        child: Text('得単', style: TextStyle(fontSize: 20.0),),
+        child: Text('得単', style: TextStyle(fontSize: 10.0),),
         value: 1,
       ))
       ..add(DropdownMenuItem(
-        child: Text('優', style: TextStyle(fontSize: 20.0),),
+        child: Text('優', style: TextStyle(fontSize: 10.0),),
         value: 2,
       ))
       ..add(DropdownMenuItem(
-        child: Text('優上', style: TextStyle(fontSize: 20.0),),
+        child: Text('優上', style: TextStyle(fontSize: 10.0),),
         value: 3,
       ));
   }
@@ -53,9 +53,9 @@ class _TargetScreenState extends State<TargetScreen> {
               trailing: DropdownButton(
                 items: _items,
                 value: _selectItem,
-                onChanged: (value) => {
+                onChanged: (int? value) => {
                   setState(() {
-                    _selectItem= value;
+                    _selectItem =  value!;
                   }),
                 },
               ),
