@@ -43,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
             _buildInputField(
               textInputType: TextInputType.emailAddress,
               controller: emailController,
-              hintText: "メールアドレス",
+              hintText: "tanimoney@gmail.com",
               validator: (value) {
                 if (value!.isEmpty) {
                   return ("メールアドレスを入力してください");
@@ -54,6 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 }
               },
               icon: Icons.email,
+              labelText: "メールアドレス",
               obscureText: false,
               textInputAction: TextInputAction.next,
             ),
@@ -63,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
             _buildInputField(
               textInputType: TextInputType.visiblePassword,
               controller: passwordController,
-              hintText: "パスワード",
+              hintText: "tanimoney1",
               validator: (value) {
                 RegExp regex = new RegExp(r'^.{8,}$');
                 if (value!.isEmpty) {
@@ -73,6 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   return ("パスワードは８文字以上です");
                 }
               },
+              labelText: "パスワード" ,
               icon: Icons.vpn_key_outlined,
               obscureText: true,
               textInputAction: TextInputAction.done,
@@ -125,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
       required String hintText,
       required IconData icon,
       required bool obscureText,
-      required TextInputAction textInputAction,
+      required TextInputAction textInputAction, required String labelText,
       FormFieldValidator? validator}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 36.0),
@@ -138,6 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
         validator: validator,
         decoration: InputDecoration(
             prefixIcon: Icon(icon),
+            labelText: labelText,
             contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
             hintText: hintText,
             border:
