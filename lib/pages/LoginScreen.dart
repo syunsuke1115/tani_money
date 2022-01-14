@@ -54,6 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 }
               },
               icon: Icons.email,
+              labelText: "メールアドレスを入力してください",
               obscureText: false,
               textInputAction: TextInputAction.next,
             ),
@@ -73,6 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   return ("パスワードは８文字以上です");
                 }
               },
+              labelText: "パスワードを入力してください" ,
               icon: Icons.vpn_key_outlined,
               obscureText: true,
               textInputAction: TextInputAction.done,
@@ -125,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
       required String hintText,
       required IconData icon,
       required bool obscureText,
-      required TextInputAction textInputAction,
+      required TextInputAction textInputAction, required String labelText,
       FormFieldValidator? validator}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 36.0),
@@ -138,6 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
         validator: validator,
         decoration: InputDecoration(
             prefixIcon: Icon(icon),
+            labelText: labelText,
             contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
             hintText: hintText,
             border:
