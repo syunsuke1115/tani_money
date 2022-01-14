@@ -118,7 +118,7 @@ class _MainScreenState extends State<MainScreen> {
                             return Card(
                                 child: ListTile(
                               title: Text(data["subjectName"]),
-                              trailing: Text(data["targetOfSubject"]),
+                              trailing:Text(data["targetOfSubject"] != null?data["targetOfSubject"]:" "),
                               ),
                             );
                           }).toList(),
