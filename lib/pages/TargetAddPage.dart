@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TargetAddPage extends StatefulWidget {
   @override
@@ -8,13 +10,16 @@ class TargetAddPage extends StatefulWidget {
 class _TargetAddPageState extends State<TargetAddPage> {
   // 入力されたテキストをデータとして持つ
   String _text = '';
+  static final _firestore = FirebaseFirestore.instance;
 
   // データを元に表示するWidget
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('リスト追加'),
+        title: Text('目標追加',
+            style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center),
       ),
       body: Container(
         // 余白を付ける
@@ -23,7 +28,9 @@ class _TargetAddPageState extends State<TargetAddPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             // 入力されたテキストを表示
-            Text(_text, style: TextStyle(color: Colors.blue)),
+            Text(_text,
+            style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center),
             const SizedBox(height: 8),
             // テキスト入力
             TextField(
@@ -42,7 +49,9 @@ class _TargetAddPageState extends State<TargetAddPage> {
               width: double.infinity,
               // リスト追加ボタン
               child: ElevatedButton(
-                child: const Text('目標設定'),
+                child: const Text('目標設定',
+                    style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center),
                 style: ElevatedButton.styleFrom(
                   primary: Colors.grey[300],
                   onPrimary: Colors.blue,
@@ -51,6 +60,7 @@ class _TargetAddPageState extends State<TargetAddPage> {
                   // "pop"で前の画面に戻る
                   // "pop"の引数から前の画面にデータを渡す
                   Navigator.of(context).pop(_text);
+                  addFirestore(_text);
                 },
               ),
             ),
@@ -65,12 +75,28 @@ class _TargetAddPageState extends State<TargetAddPage> {
                   // "pop"で前の画面に戻る
                   Navigator.of(context).pop();
                 },
-                child: Text('キャンセル'),
+                child: Text('キャンセル',
+                    style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center),
               ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  void addFirestore(_text) {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? user = auth.currentUser;
+    final uid = user!.uid;
+    _firestore
+        .collection('users')
+        .doc(uid)
+        .collection('targets')
+        .doc()
+        .set({
+      'subjectName': _text,
+    });
   }
 }

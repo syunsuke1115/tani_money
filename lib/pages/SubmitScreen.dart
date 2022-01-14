@@ -52,7 +52,10 @@ class _SubmitScreenState extends State<SubmitScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("成績提出"),
+          title: Text("成績提出",
+              style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center
+          ),
           centerTitle: true,
           backgroundColor: Colors.blue,
         ),
@@ -61,8 +64,14 @@ class _SubmitScreenState extends State<SubmitScreen> {
             return Card(
               child: CheckboxListTile(
                 activeColor: Colors.orange,
-                title: Text(seiseki[index][0]),
-                secondary: Text("+${seiseki[index][1]}円"),
+                title: Text(seiseki[index][0],
+                    style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.left
+                ),
+                secondary: Text("+${seiseki[index][1]}円",
+                    style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center
+                ),
                 controlAffinity: ListTileControlAffinity.leading,
                 value: _selectedIndex.contains(index),
                 onChanged: (e) {
@@ -74,7 +83,10 @@ class _SubmitScreenState extends State<SubmitScreen> {
           },
           itemCount: seiseki.length,
         ),
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: Container(
+        margin: EdgeInsets.only(bottom: 50.0),
+        alignment: Alignment.bottomCenter,
+       child:FloatingActionButton.extended(
         onPressed: ()async {
           if(_selectedIndex.isEmpty){
             var result = await showDialog<int>(
@@ -82,15 +94,49 @@ class _SubmitScreenState extends State<SubmitScreen> {
               barrierDismissible: false,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  title: Text('成績'),
+                  backgroundColor: Colors.transparent,
+                  insetPadding: EdgeInsets.all(10),
                   content: Center(
-                      child: Image.asset('images/congrat.png'),
+                      child: Stack(
+                        clipBehavior: Clip.none, alignment: Alignment.center,
+                        children: <Widget>[
+                          Container(
+                            width: double.infinity,
+                            height: 200,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: Colors.deepOrange
+                            ),
+                            padding: EdgeInsets.fromLTRB(20, 50, 20, 20),
+                            child: Align(
+                              alignment: Alignment(0, 0),
+                              child: Text("単位を全て取得できました!",
+                                style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center
+
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                              top: -100,
+                              child: Image.asset("images/congrat.png", width: 150, height: 150)
+                          )
+                        ],
+                      )
                   ),
                   actions: <Widget>[
-                    TextButton(
-                      child: Text('OK'),
-                      onPressed: () => Navigator.of(context).pop(1),
+                    ElevatedButton(
+                      child: const Text('OK',
+                          style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.deepOrangeAccent,
+                        onPrimary: Colors.black,
+                        shape: const StadiumBorder(),
+                      ),
+                      onPressed: ()=> Navigator.of(context).pop(1),
                     ),
+
                   ],
                 );
               },
@@ -103,21 +149,65 @@ class _SubmitScreenState extends State<SubmitScreen> {
             barrierDismissible: false,
             builder: (BuildContext context) {
               return AlertDialog(
-                title: Text('成績'),
-                content: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text("あなたの落とした単位は"),
-                    Text("$_credit"),
-                    Text("金額は"),
-                    Text("$_price"),
-                  ],
+                backgroundColor: Colors.transparent,
+                insetPadding: EdgeInsets.all(10),
+                content: Center(
+                    child: Stack(
+                      clipBehavior: Clip.none, alignment: Alignment.center,
+                      children: <Widget>[
+                        Container(
+                          width: double.infinity,
+                          height: 200,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Colors.deepPurple
+                          ),
+                          padding: EdgeInsets.fromLTRB(20, 50, 20, 20),
+                          child: Align(
+                            alignment: Alignment(0, 0),
+                            child:Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text("あなたの落とした単位は",
+                                    style: TextStyle(fontSize: 20,fontWeight: FontWeight.normal,color: Colors.grey,decoration: TextDecoration.underline),
+                                    textAlign: TextAlign.center
+                          ),
+                                Text("$_credit単位",
+                                    style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center
+                                ),
+                                Text("金額は",
+                                    style: TextStyle(fontSize: 20,fontWeight: FontWeight.normal,color: Colors.grey,decoration: TextDecoration.underline),
+                                    textAlign: TextAlign.center
+                                ),
+                                Text("$_price円",
+                                    style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                            top: -100,
+                            child: Image.asset("images/sad.png", width: 150, height: 150)
+                        )
+                      ],
+                    )
                 ),
                 actions: <Widget>[
-                  TextButton(
-                    child: Text('OK'),
-                    onPressed: () => Navigator.of(context).pop(1),
+                  ElevatedButton(
+                    child: const Text('OK',
+                        style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.indigo,
+                      onPrimary: Colors.black,
+                      shape: const StadiumBorder(),
+                    ),
+                    onPressed: ()=> Navigator.of(context).pop(1),
                   ),
+
                 ],
               );
             },
@@ -127,27 +217,15 @@ class _SubmitScreenState extends State<SubmitScreen> {
           }
         },
         icon: new Icon(Icons.add),
-        label: Text("成績を提出する"),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        child: new Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            IconButton(
-              icon: Icon(Icons.menu),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {},
-            )
-          ],
-        ),
+        label: Text("成績を提出する",
+            style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center),
       ),
 
 
+
+
+     ),
     );
 
   }}

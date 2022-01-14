@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "298616976586",
+    "project_id": "tanimoney-178a7",
+    "storage_bucket": "tanimoney-178a7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:298616976586:android:92f9eb89ef3d0984ce7033",
+        "android_client_info": {
+          "package_name": "com.example.tanimy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "298616976586-4lq8heu186qbj1ck43opjjatqtpuav1r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDh-RmbxteP8sDraItJItsBf3LnbOff2GA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "298616976586-4lq8heu186qbj1ck43opjjatqtpuav1r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
