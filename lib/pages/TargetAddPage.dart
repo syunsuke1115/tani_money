@@ -18,7 +18,9 @@ class _TargetAddPageState extends State<TargetAddPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('リスト追加'),
+        title: Text('目標追加',
+            style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center),
       ),
       body: Container(
         // 余白を付ける
@@ -68,7 +70,9 @@ class _TargetAddPageState extends State<TargetAddPage> {
               width: double.infinity,
               // リスト追加ボタン
               child: ElevatedButton(
-                child: const Text('目標設定'),
+                child: const Text('目標設定',
+                    style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center),
                 style: ElevatedButton.styleFrom(
                   primary: Colors.grey[300],
                   onPrimary: Colors.blue,
@@ -91,7 +95,9 @@ class _TargetAddPageState extends State<TargetAddPage> {
                   // "pop"で前の画面に戻る
                   Navigator.of(context).pop();
                 },
-                child: Text('キャンセル'),
+                child: Text('キャンセル',
+                    style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center),
               ),
             ),
           ],
