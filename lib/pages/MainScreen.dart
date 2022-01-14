@@ -168,7 +168,7 @@ class _MainScreenState extends State<MainScreen> {
     if (data["targetFrag"] == true) {
       message = "${data["nickname"]}さんは以下の目標を設定しました\n           諦めずにがんばりましょう";
     } else {
-      message = "右下のプラスボタンから目標を追加してください";
+      message = "右下のプラスボタンから\n目標を追加してください";
     }
     return message;
   }
