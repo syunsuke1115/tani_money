@@ -43,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
             _buildInputField(
               textInputType: TextInputType.emailAddress,
               controller: emailController,
-              hintText: "メールアドレス",
+              hintText: "tanimoney@gmail.com",
               validator: (value) {
                 if (value!.isEmpty) {
                   return ("メールアドレスを入力してください");
@@ -54,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 }
               },
               icon: Icons.email,
-              labelText: "メールアドレスを入力してください",
+              labelText: "メールアドレス",
               obscureText: false,
               textInputAction: TextInputAction.next,
             ),
@@ -64,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
             _buildInputField(
               textInputType: TextInputType.visiblePassword,
               controller: passwordController,
-              hintText: "パスワード",
+              hintText: "tanimoney1",
               validator: (value) {
                 RegExp regex = new RegExp(r'^.{8,}$');
                 if (value!.isEmpty) {
@@ -74,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   return ("パスワードは８文字以上です");
                 }
               },
-              labelText: "パスワードを入力してください" ,
+              labelText: "パスワード" ,
               icon: Icons.vpn_key_outlined,
               obscureText: true,
               textInputAction: TextInputAction.done,
