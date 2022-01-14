@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'MainScreen.dart';
-import 'MyPage.dart';
+import 'SettingScreen.dart';
 import 'SubmitScreen.dart';
 
 class ScreenChange extends StatefulWidget {
@@ -18,17 +18,17 @@ class _ScreenChangeState extends State<ScreenChange> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Home',
+            label: 'ホーム',
             backgroundColor: Colors.blue,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.menu_book_rounded),
-            label: 'Submit',
+            label: '成績提出',
             backgroundColor: Colors.blue,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            label: 'Setting',
+            label: '設定',
             backgroundColor: Colors.blue,
           ),
         ],
@@ -45,7 +45,7 @@ class _ScreenChangeState extends State<ScreenChange> {
             });
           case 2:
             return CupertinoTabView(builder: (context) {
-              return CupertinoPageScaffold(child: MyPage());
+              return CupertinoPageScaffold(child: SettingScreen());
             });
           default:
             return const CupertinoTabView();

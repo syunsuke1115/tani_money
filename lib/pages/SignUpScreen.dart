@@ -40,11 +40,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 _buildInputField(
                     controller: nicknameController,
                     textInputType: TextInputType.name,
-                    hintText: "ニックネーム",
                     obscureText: false,
                     onSaved: (value) {
                       nicknameController.text = value!;
                     },
+                    hintText: "タニマニ",
+                    labelText: "ニックネーム" ,
                     icon: Icons.account_circle,
                     textInputAction: TextInputAction.next,
                     validator: (value) {
@@ -63,7 +64,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 _buildInputField(
                     controller: emailController,
                     textInputType: TextInputType.emailAddress,
-                    hintText: "メールアドレス",
+                    hintText: "tanimoney@gmail.com",
                     obscureText: false,
                     onSaved: (value) {
                       emailController.text = value!;
@@ -78,6 +79,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       }
                     },
                     icon: Icons.mail,
+                    labelText: "メールアドレス" ,
                     textInputAction: TextInputAction.next),
 
                 SizedBox(height: 30),
@@ -86,7 +88,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 _buildInputField(
                     controller: passwordController,
                     textInputType: TextInputType.visiblePassword,
-                    hintText: "パスワード",
+                    hintText: "tanimoney1",
                     obscureText: true,
                     onSaved: (value) {
                       passwordController.text = value!;
@@ -104,6 +106,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       }
                     },
                     icon: Icons.vpn_key,
+                    labelText: "パスワード" ,
                     textInputAction: TextInputAction.next),
 
                 SizedBox(height: 30),
@@ -112,7 +115,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 _buildInputField(
                     controller: confirmPasswordController,
                     textInputType: TextInputType.visiblePassword,
-                    hintText: "パスワード（再）",
+                    hintText: "tanimoney1",
                     obscureText: true,
                     onSaved: (value) {
                       confirmPasswordController.text = value!;
@@ -124,6 +127,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       }
                     },
                     icon: Icons.vpn_key,
+                    labelText: "パスワード（再）" ,
                     textInputAction: TextInputAction.done),
 
                 SizedBox(height: 30),
@@ -173,6 +177,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       required IconData icon,
       required bool obscureText,
       required TextInputAction textInputAction,
+        required String labelText,
       required FormFieldValidator validator}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 36.0),
@@ -188,6 +193,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             prefixIcon: Icon(icon),
             contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
             hintText: hintText,
+            labelText: labelText,
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
       ),
@@ -209,6 +215,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     userModel.email = user!.email;
     userModel.uid = user.uid;
     userModel.nickname = nicknameController.text;
+    userModel.targetFrag = false;
 
     await firebaseFirestore
         .collection("users")
