@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'MainScreen.dart';
-import 'MyPage.dart';
+import 'SettingScreen.dart';
 import 'SubmitScreen.dart';
 import 'TargetScreen.dart';
 
@@ -55,7 +55,7 @@ class _ScreenChangeState extends State<ScreenChange> {
             });
           case 3:
             return CupertinoTabView(builder: (context) {
-              return CupertinoPageScaffold(child: MyPage());
+              return CupertinoPageScaffold(child: SettingScreen());
             });
           default:
             return const CupertinoTabView();

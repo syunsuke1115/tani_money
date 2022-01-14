@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:tanimy/pages/MainScreen.dart';
-import 'package:tanimy/pages/MyPage.dart';
+import 'package:tanimy/pages/SettingScreen.dart';
 import 'package:tanimy/pages/SubmitScreen.dart';
 import 'package:tanimy/pages/TargetScreen.dart';
 import 'pages/HomeScreen.dart';
@@ -22,7 +22,7 @@ class Myapp extends StatelessWidget {
         '/home': (BuildContext context) => new MainScreen(),
         '/target': (BuildContext context) => new TargetScreen(),
         '/submit': (BuildContext context) => new SubmitScreen(),
-        '/setting': (BuildContext context) => new MyPage()
+        '/setting': (BuildContext context) => new SettingScreen()
       },
     );
   }
