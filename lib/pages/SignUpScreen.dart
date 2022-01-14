@@ -209,6 +209,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     userModel.email = user!.email;
     userModel.uid = user.uid;
     userModel.nickname = nicknameController.text;
+    userModel.targetFrag = false;
 
     await firebaseFirestore
         .collection("users")
