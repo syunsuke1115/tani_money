@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'MainScreen.dart';
 import 'SettingScreen.dart';
 import 'SubmitScreen.dart';
-import 'TargetScreen.dart';
 
 class ScreenChange extends StatefulWidget {
   const ScreenChange({Key? key}) : super(key: key);
@@ -20,11 +19,6 @@ class _ScreenChangeState extends State<ScreenChange> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
-            backgroundColor: Colors.blue,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.flag_rounded),
-            label: 'Targets',
             backgroundColor: Colors.blue,
           ),
           BottomNavigationBarItem(
@@ -47,13 +41,9 @@ class _ScreenChangeState extends State<ScreenChange> {
             });
           case 1:
             return CupertinoTabView(builder: (context) {
-              return CupertinoPageScaffold(child: TargetScreen());
-            });
-          case 2:
-            return CupertinoTabView(builder: (context) {
               return CupertinoPageScaffold(child: SubmitScreen());
             });
-          case 3:
+          case 2:
             return CupertinoTabView(builder: (context) {
               return CupertinoPageScaffold(child: SettingScreen());
             });
