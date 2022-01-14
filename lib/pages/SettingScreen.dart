@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tanimy/models/botton_common.dart';
-import 'package:tanimy/pages/CreditRegisterScreen.dart';
-import 'dart:convert';
 import 'dart:io';
-
-import 'package:flutter/material.dart';
-import 'package:stripe_payment/stripe_payment.dart';
-
+import 'package:stripe_payment/stripe_payment.dart' as Payment;
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 void main() {
   runApp(new SettingScreen());
 }
@@ -22,21 +20,22 @@ class SettingScreen extends StatefulWidget {
 class _SettingScreenState extends State<SettingScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController amountController = new TextEditingController();
+  static final _firestore = FirebaseFirestore.instance;
 
-  Token? _paymentToken;
-  PaymentMethod? _paymentMethod;
+  Payment.Token? _paymentToken;
+  Payment.PaymentMethod? _paymentMethod;
   String? _error;
 
   //this client secret is typically created by a backend system
   //check https://stripe.com/docs/payments/payment-intents#passing-to-client
   final String? _paymentIntentClientSecret = null;
 
-  PaymentIntentResult? _paymentIntent;
+  Payment.PaymentIntentResult? _paymentIntent;
   Source? _source;
 
   ScrollController _controller = ScrollController();
 
-  final CreditCard testCard = CreditCard(
+  final Payment.CreditCard testCard = Payment.CreditCard(
     number: '4000002760003184',
     expMonth: 12,
     expYear: 21,
@@ -55,7 +54,7 @@ class _SettingScreenState extends State<SettingScreen> {
   initState() {
     super.initState();
 
-    StripePayment.setOptions(StripeOptions(
+    Payment.StripePayment.setOptions(Payment.StripeOptions(
         publishableKey: "pk_test_aSaULNS8cJU6Tvo20VAXy6rp",
         merchantId: "Test",
         androidPayMode: 'test'));
@@ -101,13 +100,10 @@ class _SettingScreenState extends State<SettingScreen> {
                 _buildInputField(
                   textInputType: TextInputType.emailAddress,
                   controller: amountController,
-                  hintText: "金額[円]を入力してください",
+                  hintText: "1000",
                   validator: (value) {
                     if (value!.isEmpty) {
                       return ("金額[円]を入力してください");
-                    }
-                    if (true) {
-                      return ("整数を入力してください");
                     }
                   },
                   icon: Icons.money_outlined,
@@ -119,10 +115,6 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
                 ButtonCommon(
                     onPressed: () {
-                      ////////金額の変数//////
-                      ///
-                      ///
-                      final billingAmount = TextEditingController().text;
                       enterAmount(amountController.text);
                     },
                     label: "金額を確定",
@@ -138,8 +130,8 @@ class _SettingScreenState extends State<SettingScreen> {
             ),
             ButtonCommon(
                 onPressed: () {
-                  StripePayment.paymentRequestWithCardForm(
-                          CardFormPaymentRequest())
+                  Payment.StripePayment.paymentRequestWithCardForm(
+                      Payment.CardFormPaymentRequest())
                       .then((paymentMethod) {
                     _scaffoldKey.currentState!.showSnackBar(SnackBar(
                         content: Text('Received ${paymentMethod.id}')));
@@ -158,16 +150,16 @@ class _SettingScreenState extends State<SettingScreen> {
                   if (Platform.isIOS) {
                     _controller.jumpTo(450);
                   }
-                  StripePayment.paymentRequestWithNativePay(
-                    androidPayOptions: AndroidPayPaymentRequest(
+                  Payment.StripePayment.paymentRequestWithNativePay(
+                    androidPayOptions: Payment.AndroidPayPaymentRequest(
                       totalPrice: "1.20",
                       currencyCode: "JPY",
                     ),
-                    applePayOptions: ApplePayPaymentOptions(
+                    applePayOptions: Payment.ApplePayPaymentOptions(
                       countryCode: 'JP',
                       currencyCode: 'JPY',
                       items: [
-                        ApplePayItem(
+                        Payment.ApplePayItem(
                           label: 'Test',
                           amount: '13',
                         )
@@ -189,8 +181,18 @@ class _SettingScreenState extends State<SettingScreen> {
     );
   }
 
-  void enterAmount(String amount) async {
-    final amountError = _formKey.currentState!.validate();
+  void enterAmount(String amount) {
+    final amountInt= int.parse(amount);
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? user = auth.currentUser;
+    final uid = user!.uid;
+    _firestore
+        .collection('users')
+        .doc(uid)
+        .update({
+      'fine': amountInt,
+    });
+    Fluttertoast.showToast(msg: "課金額を変更しました");
   }
 
   Widget _buildInputField(
