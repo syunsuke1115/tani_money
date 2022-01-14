@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tanimy/pages/TargetAddPage.dart';
 import 'package:tanimy/parts/use_model.dart';
 
-import 'MyPage.dart';
+import 'SettingScreen.dart';
 import 'SubmitScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
