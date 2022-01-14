@@ -9,7 +9,8 @@ class TargetAddPage extends StatefulWidget {
 
 class _TargetAddPageState extends State<TargetAddPage> {
   // 入力されたテキストをデータとして持つ
-  String _text = '';
+  String _creditText = '';
+  String _targetText = '';
   static final _firestore = FirebaseFirestore.instance;
 
   // データを元に表示するWidget
@@ -21,12 +22,11 @@ class _TargetAddPageState extends State<TargetAddPage> {
       ),
       body: Container(
         // 余白を付ける
-        padding: EdgeInsets.all(64),
+        padding: EdgeInsets.all(50),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             // 入力されたテキストを表示
-            Text(_text, style: TextStyle(color: Colors.blue)),
             const SizedBox(height: 8),
             // テキスト入力
             TextField(
@@ -35,9 +35,32 @@ class _TargetAddPageState extends State<TargetAddPage> {
                 // データが変更したことを知らせる（画面を更新する）
                 setState(() {
                   // データを変更
-                  _text = value;
+                  _creditText = value;
                 });
               },
+              decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.library_books_outlined),
+                  contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                  hintText: "単位名",
+                  border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
+            ),
+            const SizedBox(height: 8),
+            TextField(
+              // 入力されたテキストの値を受け取る（valueが入力されたテキスト）
+              onChanged: (String value) {
+                // データが変更したことを知らせる（画面を更新する）
+                setState(() {
+                  // データを変更
+                  _targetText = value;
+                });
+              },
+                decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.trending_up),
+                    contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                    hintText: "目標",
+                    border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)))
             ),
             const SizedBox(height: 8),
             Container(
@@ -53,8 +76,7 @@ class _TargetAddPageState extends State<TargetAddPage> {
                 onPressed: () {
                   // "pop"で前の画面に戻る
                   // "pop"の引数から前の画面にデータを渡す
-                  Navigator.of(context).pop(_text);
-                  addFirestore(_text);
+                  addFirestore(_creditText,_targetText);
                 },
               ),
             ),
@@ -78,7 +100,8 @@ class _TargetAddPageState extends State<TargetAddPage> {
     );
   }
 
-  void addFirestore(_text) {
+  void addFirestore(_creditText,_targetText) {
+    //TODO　null チェック
     final FirebaseAuth auth = FirebaseAuth.instance;
     final User? user = auth.currentUser;
     final uid = user!.uid;
@@ -88,7 +111,8 @@ class _TargetAddPageState extends State<TargetAddPage> {
         .collection('targets')
         .doc()
         .set({
-      'subjectName': _text,
+      'subjectName': _creditText,
+      "targetOfSubject":_targetText,
     });
     _firestore
         .collection('users')

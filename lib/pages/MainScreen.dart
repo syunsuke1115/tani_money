@@ -118,16 +118,9 @@ class _MainScreenState extends State<MainScreen> {
                             return Card(
                                 child: ListTile(
                               title: Text(data["subjectName"]),
-                              trailing: DropdownButton(
-                                items: _items,
-                                value: _selectItem,
-                                onChanged: (int? value) => {
-                                  setState(() {
-                                    _selectItem = value!;
-                                  }),
-                                },
+                              trailing: Text(data["targetOfSubject"]),
                               ),
-                            ));
+                            );
                           }).toList(),
                         ),
                       );
