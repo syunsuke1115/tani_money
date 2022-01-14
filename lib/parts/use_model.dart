@@ -2,8 +2,9 @@ class UserModel {
   String? uid;
   String? email;
   String? nickname;
+  bool? targetFrag;
 
-  UserModel({this.uid, this.email, this.nickname});
+  UserModel({this.uid,this.email, this.nickname,this.targetFrag});
 
   // receiving data from server
   factory UserModel.fromMap(map) {
@@ -11,6 +12,7 @@ class UserModel {
         uid: map['uid'],
         email: map['email'],
         nickname: map['nickname'],
+        targetFrag:map["targetFrag"],
     );
   }
 
@@ -20,6 +22,7 @@ class UserModel {
       'uid': uid,
       'email': email,
       'nickname': nickname,
+      "targetFrag": targetFrag,
     };
   }
 }
