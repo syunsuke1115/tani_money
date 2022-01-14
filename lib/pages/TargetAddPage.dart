@@ -90,5 +90,12 @@ class _TargetAddPageState extends State<TargetAddPage> {
         .set({
       'subjectName': _text,
     });
+    _firestore
+        .collection('users')
+        .doc(uid)
+        .update({
+      'targetFrag': true,
+    });
+
   }
 }

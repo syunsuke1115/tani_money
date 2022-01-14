@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tanimy/pages/TargetAddPage.dart';
+import 'package:tanimy/parts/use_model.dart';
 
 import 'MyPage.dart';
 import 'SubmitScreen.dart';
@@ -65,6 +66,9 @@ class _MainScreenState extends State<MainScreen> {
         .doc(uid)
         .collection("targets")
         .snapshots();
+
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -72,24 +76,42 @@ class _MainScreenState extends State<MainScreen> {
         title: Text("目標単位"),
       ),
       body: Container(
-        child: Column(
-          children: [
-            StreamBuilder<QuerySnapshot>(
-              stream: _targetsStream,
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Text("Loading");
-                }
-                return Expanded(
-                  child: ListView(
-                    children:
-                        snapshot.data!.docs.map((DocumentSnapshot document) {
-                      Map<String, dynamic> data =
-                          document.data() as Map<String, dynamic>;
-                      return Card(
-                          child: ListTile(
-                        title: Text(data["subjectName"]),
+        child: FutureBuilder<DocumentSnapshot>(
+            future: users.doc(uid).get(),
+          builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Text("Loading");
+            }
+            Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+            return Column(
+              children: [
+                Center(
+                  child: Text(
+                    homeMessage(data),
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20),
+                StreamBuilder<QuerySnapshot>(
+                  stream: _targetsStream,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    return Expanded(
+                      child: ListView(
+                        children:
+                            snapshot.data!.docs.map((DocumentSnapshot document) {
+                          Map<String, dynamic> data =
+                              document.data() as Map<String, dynamic>;
+                          return Card(
+                              child: ListTile(
+                            title: Text(data["subjectName"]),
                             trailing: DropdownButton(
                               items: _items,
                               value: _selectItem,
@@ -99,20 +121,23 @@ class _MainScreenState extends State<MainScreen> {
                                 }),
                               },
                             ),
-                      ));
-                    }).toList(),
-                  ),
-                );
-              },
-            ),
-          ],
+                          ));
+                        }).toList(),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            );
+          }
         ),
       ),
       floatingActionButton: Container(
+        margin: EdgeInsets.only(bottom: 50.0),
         child: FloatingActionButton(
           onPressed: () async {
             // "push"で新規画面に遷移
-            // リスト追加画面から渡される値を受け取る
+            // リスト追加画面から渡さSれる値を受け取る
             final newListText = await Navigator.of(context).push(
               MaterialPageRoute(builder: (context) {
                 // 遷移先の画面としてリスト追加画面を指定
@@ -132,4 +157,17 @@ class _MainScreenState extends State<MainScreen> {
       ),
     );
   }
+
+  String homeMessage(Map<String, dynamic> data) {
+    String message = "";
+    print(data);
+    if(data["targetFrag"] == true){
+      message = "${data["nickname"]}さんは以下の目標を設定しました。\n諦めずにがんばりましょう。";
+    }else{
+      message = "右下のプラスボタンから目標を追加してください";
+    }
+    return message;
+  }
 }
+
+
