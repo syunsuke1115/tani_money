@@ -81,6 +81,7 @@ class _TargetAddPageState extends State<TargetAddPage> {
                   // "pop"で前の画面に戻る
                   // "pop"の引数から前の画面にデータを渡す
                   addFirestore(_creditText,_targetText);
+                  Navigator.of(context).pop();
                 },
               ),
             ),

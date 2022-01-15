@@ -89,10 +89,10 @@ class _MainScreenState extends State<MainScreen> {
       floatingActionButton: Container(
         margin: EdgeInsets.only(bottom: 50.0),
         child: FloatingActionButton.extended(
-          onPressed: () async {
+          onPressed: () {
             // "push"で新規画面に遷移
             // リスト追加画面から渡さSれる値を受け取る
-            final newListText = await Navigator.of(context).push(
+            Navigator.of(context).push(
               MaterialPageRoute(builder: (context) {
                 // 遷移先の画面としてリスト追加画面を指定
                 return TargetAddPage();
