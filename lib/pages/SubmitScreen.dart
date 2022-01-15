@@ -214,7 +214,7 @@ class _SubmitScreenState extends State<SubmitScreen> {
                                     style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
                                     textAlign: TextAlign.center
                                 ),
-                                Text("金額は",
+                                Text("今学期の課金額は",
                                     style: TextStyle(fontSize: 20,fontWeight: FontWeight.normal,color: Colors.grey,decoration: TextDecoration.underline),
                                     textAlign: TextAlign.center
                                 ),
@@ -239,7 +239,7 @@ class _SubmitScreenState extends State<SubmitScreen> {
                         style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center),
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.indigo,
+                      primary: Colors.deepPurple,
                       onPrimary: Colors.black,
                       shape: const StadiumBorder(),
                     ),

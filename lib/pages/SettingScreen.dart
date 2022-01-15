@@ -74,7 +74,7 @@ class _SettingScreenState extends State<SettingScreen> {
       home: new Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          title: Text("設定"),
+          title: Text("設定",style: TextStyle(fontWeight: FontWeight.bold)),
           centerTitle: true,
           backgroundColor: Colors.blue,
           actions: <Widget>[

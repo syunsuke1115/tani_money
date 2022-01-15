@@ -29,7 +29,7 @@ class _MainScreenState extends State<MainScreen> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.blue,
-        title: Text("目標単位"),
+        title: Text("目標単位",style: TextStyle(fontWeight: FontWeight.bold),),
       ),
       body: Container(
         child: FutureBuilder<DocumentSnapshot>(
@@ -50,7 +50,7 @@ class _MainScreenState extends State<MainScreen> {
                     child: Text(
                       homeMessage(data),
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 18,fontWeight: FontWeight.bold
                       ),
                     ),
                   ),
@@ -73,8 +73,8 @@ class _MainScreenState extends State<MainScreen> {
                                 document.data() as Map<String, dynamic>;
                             return Card(
                                 child: ListTile(
-                              title: Text(data["subjectName"]),
-                              trailing:Text(data["targetOfSubject"] != null?data["targetOfSubject"]:" "),
+                              title: Text(data["subjectName"],style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold),),
+                              trailing:Text(data["targetOfSubject"] != null?data["targetOfSubject"]:" ",style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold),),
                               ),
                             );
                           }).toList(),
@@ -131,7 +131,7 @@ class _MainScreenState extends State<MainScreen> {
             children: [
               TextSpan(text: "1単位落とすと",style: TextStyle(
                 fontSize: 18,
-                color: Colors.black,
+                color: Colors.black,fontWeight: FontWeight.bold
               ),),
               TextSpan(text: fine.toString(), style: TextStyle(
                 fontSize: 24,
@@ -140,7 +140,7 @@ class _MainScreenState extends State<MainScreen> {
               ),),
               TextSpan(text: "円課金されます",style: TextStyle(
                 fontSize: 18,
-                  color: Colors.black
+                  color: Colors.black,fontWeight: FontWeight.bold
               ),),
             ],),
           ),
