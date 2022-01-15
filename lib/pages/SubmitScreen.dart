@@ -24,7 +24,7 @@ class _SubmitScreenState extends State<SubmitScreen> {
     final messages = await FirebaseFirestore.instance.collection("users").doc(uid)
         .collection('targets').get();
     final userData = await FirebaseFirestore.instance.collection("users").doc(uid).get();
-    fine = userData.data()!["fine"];
+    fine = userData.data()!["fine"] != null?userData.data()!["fine"]:100;
     for (var message in messages.docs) {
       seiseki.add(message.data()["subjectName"]);
     }
