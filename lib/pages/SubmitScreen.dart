@@ -28,6 +28,8 @@ class _SubmitScreenState extends State<SubmitScreen> {
     for (var message in messages.docs) {
       seiseki.add(message.data()["subjectName"]);
     }
+    setState(() {
+    });
   }
 
   @override
@@ -77,29 +79,45 @@ class _SubmitScreenState extends State<SubmitScreen> {
           centerTitle: true,
           backgroundColor: Colors.blue,
         ),
-        body: ListView.builder(
-          itemBuilder: (context, index) {
-            return Card(
-              child: CheckboxListTile(
-                activeColor: Colors.orange,
-                title: Text(seiseki[index],
-                    style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.left
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Center(
+                child: Text(
+                  "落とした単位を選択してください",
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
                 ),
-                secondary: Text("+${fine}円",
-                    style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center
-                ),
-                controlAffinity: ListTileControlAffinity.leading,
-                value: _selectedIndex.contains(index),
-                onChanged: (e) {
-                  // Card 内のチェックボックスが選択されたら実行
-                  _handleCheckbox(index, e!);
-                },
               ),
-            );
-          },
-          itemCount: seiseki.length,
+              ListView.builder(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: CheckboxListTile(
+                      activeColor: Colors.orange,
+                      title: Text(seiseki[index],
+                          style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.left
+                      ),
+                      secondary: Text("+${fine}円",
+                          style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center
+                      ),
+                      controlAffinity: ListTileControlAffinity.leading,
+                      value: _selectedIndex.contains(index),
+                      onChanged: (e) {
+                        // Card 内のチェックボックスが選択されたら実行
+                        _handleCheckbox(index, e!);
+                      },
+                    ),
+                  );
+                },
+                itemCount: seiseki.length,
+              ),
+            ],
+          ),
         ),
       floatingActionButton: Container(
         margin: EdgeInsets.only(bottom: 50.0),
