@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SubmitScreen extends StatefulWidget {
   const SubmitScreen({Key? key}) : super(key: key);
@@ -12,21 +14,29 @@ class _SubmitScreenState extends State<SubmitScreen> {
   bool _active = false;
 
   void _changeSwitch(bool e) => setState(() => _active = e);
+  late List<String> seiseki = [];
+  late var fine = 0;
 
+  void getMessagesFine() async {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? user = auth.currentUser;
+    final uid = user!.uid;
+    final messages = await FirebaseFirestore.instance.collection("users").doc(uid)
+        .collection('targets').get();
+    final userData = await FirebaseFirestore.instance.collection("users").doc(uid).get();
+    fine = userData.data()!["fine"];
+    for (var message in messages.docs) {
+      seiseki.add(message.data()["subjectName"]);
+    }
+  }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    getMessagesFine();
+    super.initState();
+  }
 
-  // void getMessages() async {
-  //   final messages = await _firestore.collection("コレクション名").get();
-  //   for (var message in messages.docs) {
-  //     print(message.data());
-  //   }
-  // }
-
-  final List<List<String>> seiseki = [
-    ["科目名1", "1000"],
-    ["科目名2", "1000"],
-    ["科目名3", "1000"],
-  ];
   int _price = 0;
   int _credit = 0;
 
@@ -50,8 +60,7 @@ class _SubmitScreenState extends State<SubmitScreen> {
         return;
       }
       _price = _selectedIndex
-          .map((i) => seiseki[i][1]) // seisekiから値段を抽出
-          .map(int.parse) // 数値に変換
+          .map((i) => fine) // seisekiから値段を抽出
           .reduce((value, element) => value + element); // 合計値を計算
       _credit = _selectedIndex.length;
     });
@@ -73,11 +82,11 @@ class _SubmitScreenState extends State<SubmitScreen> {
             return Card(
               child: CheckboxListTile(
                 activeColor: Colors.orange,
-                title: Text(seiseki[index][0],
+                title: Text(seiseki[index],
                     style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold),
                     textAlign: TextAlign.left
                 ),
-                secondary: Text("+${seiseki[index][1]}円",
+                secondary: Text("+${fine}円",
                     style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center
                 ),
