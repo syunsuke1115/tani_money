@@ -100,7 +100,7 @@ class _MainScreenState extends State<MainScreen> {
             );
           },
             icon: new Icon(Icons.add),
-            label: Text("単位を追加する",
+            label: Text("目標を追加する",
                 style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center)
         ),
