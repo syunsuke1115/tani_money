@@ -82,14 +82,16 @@ class _SubmitScreenState extends State<SubmitScreen> {
         body: SingleChildScrollView(
           child: Column(
             children: [
+              SizedBox(height: 10),
               Center(
                 child: Text(
                   "落とした単位を選択してください",
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 18,fontWeight: FontWeight.bold
                   ),
                 ),
               ),
+              SizedBox(height: 20),
               ListView.builder(
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
@@ -119,9 +121,9 @@ class _SubmitScreenState extends State<SubmitScreen> {
             ],
           ),
         ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Container(
-        margin: EdgeInsets.only(bottom: 50.0),
-        alignment: Alignment.bottomCenter,
+        margin: EdgeInsets.only(bottom:60.0),
        child:FloatingActionButton.extended(
         onPressed: ()async {
           if(_selectedIndex.isEmpty){
