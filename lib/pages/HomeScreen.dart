@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 50,
                 ),
                 Text(
-                  "Tani money",
+                  "Tani-money",
                   style: TextStyle(
                     fontSize: 45,
                     color: Colors.blue,
